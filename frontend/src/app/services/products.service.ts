@@ -15,13 +15,22 @@ export class ProductService {
 
   getProductList(theCategoryId:number):Observable<Product[]>{
     const searchUrl=`${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
-    return this.http.get<GetResponseProducts>(searchUrl).pipe(map(
-      response=>response._embedded.products
-    ))
+    return this.getProducts(searchUrl);
   }
   getProductCatgories():Observable<ProductCategory[]>{
     return this.http.get<GetResponseProductCategory>(this.categoryUrl).pipe(map(
       response=>response._embedded.productCategory
+    ))
+  }
+
+  searchProducts(theKeyWord: string | null):Observable<Product[]> {
+    const searchUrl=`${this.baseUrl}/search/findByNameContaining?name=${theKeyWord}`
+    return this.getProducts(searchUrl);
+  }
+  private getProducts(searchUrl:string):Observable<Product[]> {
+    // @ts-ignore
+    return this.http.get<GetResponseProducts>(searchUrl).pipe(map(
+      response => response._embedded.products
     ))
   }
 }
