@@ -10,7 +10,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
-  currentCategoryId: number=1;
+  currentCategoryId: number = 1;
+  searchModel: boolean = false
   constructor(private productS: ProductService, private route: ActivatedRoute) {
   }
 
@@ -21,15 +22,30 @@ export class ProductListComponent implements OnInit {
   }
 
   listProducts() {
+    this.searchModel = this.route.snapshot.paramMap.has("keyword")
+    if (this.searchModel) {
+      this.handleSearchProducts()
+    } else {
+      this.handleListProducts()
+    }
+  }
+
+  handleSearchProducts() {
+    const theKeyWord: string | null = this.route.snapshot.paramMap.get("keyword")
+    this.productS.searchProducts(theKeyWord).subscribe(data => {
+      this.products = data;
+    })
+  }
+
+  handleListProducts() {
     let hasCategoryId = this.route.snapshot.paramMap.has("id");
     if (hasCategoryId) {
-      this.currentCategoryId = + Number(this.route.snapshot.paramMap.get("id"));
+      this.currentCategoryId = +Number(this.route.snapshot.paramMap.get("id"));
     } else {
       this.currentCategoryId = 1;
     }
     this.productS.getProductList(this.currentCategoryId).subscribe(data => {
       this.products = data
-      console.log(data)
     })
   }
 }
