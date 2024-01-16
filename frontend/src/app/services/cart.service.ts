@@ -61,4 +61,21 @@ export class CartService {
     );
     console.log('--------');
   }
+  decrementQuantity(tempCartItem: CartItem) {
+    tempCartItem.quantity--;
+    if (tempCartItem.quantity === 0) {
+      this.remove(tempCartItem);
+    } else {
+      this.computeCartToTals();
+    }
+  }
+  remove(theCartItem: CartItem) {
+    const itemIndex = this.cartItems.findIndex(
+      (tempCart) => tempCart.id === theCartItem.id
+    );
+    if (itemIndex > -1) {
+      this.cartItems.splice(itemIndex, 1);
+      this.computeCartToTals();
+    }
+  }
 }
