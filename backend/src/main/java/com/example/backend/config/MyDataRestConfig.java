@@ -1,7 +1,9 @@
 package com.example.backend.config;
 
+import com.example.backend.entity.Country;
 import com.example.backend.entity.Product;
 import com.example.backend.entity.ProductCatgeory;
+import com.example.backend.entity.State;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
 import lombok.AllArgsConstructor;
@@ -27,18 +29,25 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
         HttpMethod[] theUnsupportedAction={HttpMethod.PUT, HttpMethod.DELETE,HttpMethod.POST, HttpMethod.PATCH};
 
-        config.getExposureConfiguration()
-                .forDomainType(Product.class)
-                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedAction))
-                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedAction));
+        disableHttpMethods(Product.class,config, theUnsupportedAction);
 
-        config.getExposureConfiguration()
-                .forDomainType(ProductCatgeory.class)
-                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedAction))
-                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedAction));
+        disableHttpMethods(ProductCatgeory.class,config, theUnsupportedAction);
+
+        disableHttpMethods(Country.class,config, theUnsupportedAction);
+
+        disableHttpMethods(State.class,config, theUnsupportedAction);
+
 
         exposeIds(config);
     }
+
+    private void disableHttpMethods(Class theClass,RepositoryRestConfiguration config, HttpMethod[] theUnsupportedAction) {
+        config.getExposureConfiguration()
+                .forDomainType(theClass)
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedAction))
+                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedAction));
+    }
+
     private void exposeIds(RepositoryRestConfiguration config){
         Set<EntityType<?>> entityTypes=entityManager.getMetamodel().getEntities();
         List<Class> entityClasses=new ArrayList<>();
