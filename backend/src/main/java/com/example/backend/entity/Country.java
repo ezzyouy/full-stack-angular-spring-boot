@@ -1,5 +1,6 @@
 package com.example.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,14 +12,15 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "country")
+@Table(name="country")
 @Getter
 @Setter
 public class Country {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private long id;
+    private int id;
 
     @Column(name="code")
     private String code;
@@ -27,7 +29,7 @@ public class Country {
     private String name;
 
     @OneToMany(mappedBy = "country")
-    @JsonProperty()
+    @JsonIgnore
     private List<State> states;
 
 }

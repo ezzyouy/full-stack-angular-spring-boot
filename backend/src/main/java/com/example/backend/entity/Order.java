@@ -12,23 +12,24 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "order")
+@Table(name="orders")
 @Getter
 @Setter
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private long id;
+    private Long id;
 
     @Column(name="order_tracking_number")
-    private String OrderTrackingNumber;
-
-    @Column(name="total_price")
-    private BigDecimal TotalPrice;
+    private String orderTrackingNumber;
 
     @Column(name="total_quantity")
     private int totalQuantity;
+
+    @Column(name="total_price")
+    private BigDecimal totalPrice;
 
     @Column(name="status")
     private String status;
@@ -37,12 +38,12 @@ public class Order {
     @CreationTimestamp
     private Date dateCreated;
 
-    @Column(name="date_updated")
+    @Column(name="last_updated")
     @UpdateTimestamp
-    private Date lastUpdate;
+    private Date lastUpdated;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private Set<OrderItem> orderItems= new HashSet<>();
+    private Set<OrderItem> orderItems = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -56,10 +57,11 @@ public class Order {
     @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
     private Address billingAddress;
 
-    public void add(OrderItem item){
-        if(item != null){
-            if(orderItems == null){
-                orderItems= new HashSet<>();
+    public void add(OrderItem item) {
+
+        if (item != null) {
+            if (orderItems == null) {
+                orderItems = new HashSet<>();
             }
 
             orderItems.add(item);
