@@ -7,5 +7,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-
+    Customer findByEmail(String theEmail);
 }
