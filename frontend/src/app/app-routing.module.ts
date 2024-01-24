@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import OktaAuth from '@okta/okta-auth-js';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
   const router = injector.get(Router);
@@ -43,6 +44,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [BrowserModule, RouterModule],
 })
 export class AppRoutingModule {}
