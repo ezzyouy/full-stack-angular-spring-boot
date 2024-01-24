@@ -35,7 +35,11 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/@okta/okta-signin-widget/dist/css/okta-sign-in.min.css"
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.js"]
+            "scripts": [
+              "node_modules/@okta/okta-signin-widget/dist/js/okta-sign-in.min.js",
+              "node_modules/@okta/okta-signin-widget/dist/js/okta-sign-in.js",
+              "node_modules/@okta/okta-signin-widget/dist/js/okta-sign-in.no-polyfill.min.js"
+            ]
           },
           "configurations": {
             "production": {
