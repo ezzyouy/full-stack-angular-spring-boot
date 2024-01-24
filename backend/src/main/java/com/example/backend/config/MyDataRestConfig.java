@@ -1,9 +1,6 @@
 package com.example.backend.config;
 
-import com.example.backend.entity.Country;
-import com.example.backend.entity.Product;
-import com.example.backend.entity.ProductCatgeory;
-import com.example.backend.entity.State;
+import com.example.backend.entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
 import lombok.AllArgsConstructor;
@@ -38,6 +35,8 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         disableHttpMethods(Country.class,config, theUnsupportedAction);
 
         disableHttpMethods(State.class,config, theUnsupportedAction);
+
+        disableHttpMethods(Order.class,config, theUnsupportedAction);
 
 
         exposeIds(config);
