@@ -4,6 +4,7 @@ import { Product } from '../../common/product';
 import { ActivatedRoute } from '@angular/router';
 import { CartItem } from '../../common/cart-item';
 import { CartService } from '../../services/cart.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-product-list',
