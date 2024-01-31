@@ -27,7 +27,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Promise<HttpEvent<any>> {
-    const theEndPoint = environment?.apiUrl + '/orders';
+    const theEndPoint = environment.apiUrl + '/orders';
     const securedEndPoint = [theEndPoint];
     if (securedEndPoint.some((url) => req.urlWithParams.includes(url))) {
       const accessToken = this.oktaAuth.getAccessToken();
